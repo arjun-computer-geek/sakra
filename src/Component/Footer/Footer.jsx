@@ -11,7 +11,7 @@ const Footer = ()=> {
 
 
 <div class="row">
-sokra Copyright © 2023 - All rights reserved
+sakra Copyright © 2023 - All rights reserved
 </div>
 </div>
 </footer>
