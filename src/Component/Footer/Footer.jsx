@@ -11,7 +11,7 @@ const Footer = ()=> {
 
 
 <div class="row">
-sakra Copyright © 2023 - All rights reserved
+Dairy Desk Copyright © 2023 - All rights reserved
 </div>
 </div>
 </footer>

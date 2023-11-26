@@ -46,7 +46,7 @@ const Navbar = () => {
         <NavLink to="/" className="nav-link">
           <div className="logo">
             <img src={sokraLogo} alt="Logo" className="logo-icon" />
-            <h1 className="logo-name">Sakra</h1>
+            <h1 className="logo-name">Dairy Desk</h1>
           </div>
         </NavLink>
       </div>
