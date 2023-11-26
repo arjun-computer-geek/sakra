@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { BsArrowRight } from "react-icons/bs";
-import headerImage from "../../Assets/header-image.jpg";
+import headerImage from "../../assets/header-image.jpg";
 import { ProductContext } from "../../Contexts/ProductContext";
 import {Footer} from "../../Component/Footer/Footer";
 import "./HomeStyle.css";

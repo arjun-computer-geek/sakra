@@ -52,7 +52,7 @@ const CheckoutPrice = ({ setOrderPlace }) => {
       name: "Minute",
       description: "Thank you for shopping with us",
       image:
-        "https://github.com/vishalsinghrawat29/minute/blob/master/src/Assets/minuteLogoDarkMode.png?raw=true",
+        "https://github.com/vishalsinghrawat29/minute/blob/master/src/assets/minuteLogoDarkMode.png?raw=true",
       handler: function (response) {
         const orderData = {
           _id: uuid(),

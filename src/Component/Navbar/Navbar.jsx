@@ -9,7 +9,7 @@ import {
 import { MdOutlineLogin } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
-import sokraLogo from "../../Assets/sokra-logo.png";
+import sokraLogo from "../../assets/sokra-logo.png";
 import { ProductContext } from "../../Contexts/ProductContext";
 import { AuthContext } from "../../Contexts/AuthContext";
 import "./Navbar.css";
