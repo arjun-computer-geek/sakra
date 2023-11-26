@@ -1,5 +1,6 @@
 .login-page-container {
-  width: 94%;
+  width: 100vw;
+  height: 100vh;
   margin: 0 auto;
   margin-top: 3.6rem;
 }

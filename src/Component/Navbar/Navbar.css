@@ -30,11 +30,10 @@ nav button {
   justify-content: center;
 }
 .logo-icon {
-  width: 120px;
-  margin: 0 0.25rem;
+  width: 50px;
 }
 .logo-name {
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 /* nav-btn-container */

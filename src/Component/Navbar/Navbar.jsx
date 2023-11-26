@@ -9,7 +9,7 @@ import {
 import { MdOutlineLogin } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
-import sokraLogo from "../../assets/sokra-logo.png";
+import dairyDesk from "../../assets/dairydesk-logo.png";
 import { ProductContext } from "../../Contexts/ProductContext";
 import { AuthContext } from "../../Contexts/AuthContext";
 import "./Navbar.css";
@@ -45,7 +45,7 @@ const Navbar = () => {
       <div className="logo-container">
         <NavLink to="/" className="nav-link">
           <div className="logo">
-            <img src={sokraLogo} alt="Logo" className="logo-icon" />
+            <img src={dairyDesk} alt="Logo" className="logo-icon" />
             <h1 className="logo-name">Dairy Desk</h1>
           </div>
         </NavLink>
