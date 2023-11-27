@@ -1,6 +1,5 @@
 //Create and send token and save in th cookie.
 const sendToken = (user, statusCode, res) => {
-    console.log(process.env.COOKIE_EXPIRES_TIME, 'time')
 
     //Create Jwt tokend and send
     const token = user.getJwtToken();
