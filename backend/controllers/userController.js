@@ -204,12 +204,33 @@ exports.logout = catchAsync(async(req, res, next) => {
     })
 })
 
+
 // Admin Routes
 
+// Get all users => /api/v1/admin/list
+exports.getAllData = catchAsync( async(req, res, next) => {
+
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
 // Get all users => /api/v1/admin/users
 exports.getAllUsers = catchAsync( async(req, res, next) => {
 
-    const users = await User.find();
+    const users = await User.find({ role: { $in: ["user"] } });
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
+
+//Get all seller Details => /api/v1/admin/staffs
+exports.getAllStaff = catchAsync(async(req, res, next) =>{
+    const users = await User.find({ role: { $in: ["staff"] } });
 
     res.status(200).json({
         success: true,
@@ -259,13 +280,52 @@ exports.deleteUser = catchAsync(async(req, res, next) =>{
     if(!user) {
         return next(new ErrorHandler(`User does not found with id ${req.params.id}`));
     }
-
+    await User.findByIdAndUpdate(req.params.id, { isDeleted: true });
     // Remove awatar --TODO
 
-    await user.remove();
+    // await user.remove();
 
     res.status(200).json({
         success: true,
         
     })
+})
+
+//Staff Route
+//Update seller profile => /api/v1/staff/user/:id
+exports.updateSeller = catchAsync( async(req, res, next) => {
+    
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    if(req.body.role === 'admin'){
+        return next(new ErrorHandler(`Staff can't update admin`));
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        sucess: true
+    })
+})
+//Get all seller Details => /api/v1/sellers
+exports.getAllSellers = catchAsync(async(req, res, next) =>{
+    const users = await User.find({ role: { $in: ["seller"] } });
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
+
+// Seller Route
+exports.registerSeller = catchAsync(async (req, res, next)=> {
+    
 })
