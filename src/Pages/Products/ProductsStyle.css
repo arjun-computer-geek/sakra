@@ -1,9 +1,8 @@
 .products-page {
-  width: 94%;
+  width: 100vw;
   margin: 0 auto;
   margin-top: 3.1rem;
-  height: vh;
-  background-color: red;
+  height: 100vh;
 }
 .display-filters {
   width: 50%;
