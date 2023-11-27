@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { AuthContext } from "../../Contexts/AuthContext";
 import "./SignupStyle.css";
+import axios from "axios";
 
 const Signup = () => {
   const { userSignup } = useContext(AuthContext);
@@ -12,22 +13,50 @@ const Signup = () => {
     lastName: "",
     email: "",
     password: "",
+    image: ""
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const [isPasswordHide, setIsPasswordHide] = useState(true);
   const [isConfirmPasswordHide, setIsConfirmPasswordHide] = useState(true);
 
-  const signupDataHandler = (e) => {
+  const signupDataHandler = async (e) => {
     e.preventDefault();
-    if (Object.values(userDetails).includes("")) {
-      toast.error("Please enter valid input!");
-    } else if (confirmPassword !== userDetails.password) {
-      toast.error("Password and Comfirm Password Not Matching!!");
-    } else {
-      userSignup(userDetails);
+    // if (Object.values(userDetails).includes("")) {
+    //   toast.error("Please enter valid input!");
+    // } else if (confirmPassword !== userDetails.password) {
+    //   toast.error("Password and Comfirm Password Not Matching!!");
+    // } else {
+    //   userSignup(userDetails);
+    // }
+
+    console.log(userDetails?.image, 'images')
+
+    const formData = new FormData();
+    formData.set('name', `${userDetails?.firstName} ${userDetails?.lastName}`);
+    formData.set('email', userDetails?.email);
+    formData.set('password', userDetails?.password);
+    formData.set('avatar', userDetails?.image);
+    // const config = {
+    //   body: formData,
+    //   method: "POST",
+    // }
+
+    // const req = await fetch('http://localhost:8000/api/v1/register', config);
+    // console.log(req, 'req')
+    // const resData = await req.json();
+    // console.log(resData, 'resData');
+
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     }
+    const { data } = await axios.post('http://localhost:8000/api/v1/register', formData, config)
+    console.log(data, 'data')
   };
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -118,6 +147,12 @@ const Signup = () => {
               )}
             </span>
           </div>
+          Avatar: <input type="file" onChange={(e) =>
+            setUserDetails((prev) => ({
+              ...prev,
+              image: e.target.files[0],
+            }))
+          } />
           <button className="signup-btn" type="submit">
             Signup
           </button>
