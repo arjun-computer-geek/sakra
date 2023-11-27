@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    registerUser, 
-    loginUser, 
-    logout, 
-    forgotPassword, 
+    registerUser,
+    loginUser,
+    logout,
+    forgotPassword,
     resetPassword,
     getUserProfile,
     updatePassword,
@@ -13,10 +13,14 @@ const {
     getAllUsers,
     getUserDetails,
     updateUser,
-    deleteUser
+    deleteUser,
+    updateSeller,
+    getAllSellers,
+    getAllStaff,
+    getAllData
 } = require('../controllers/userController');
 
-const {isAuthenticatedUser, authorizeRoles} = require('../middlewares/userAuth')
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/userAuth')
 
 router
     .route('/register')
@@ -49,7 +53,12 @@ router
 router
     .route('/password/update')
     .put(isAuthenticatedUser, updatePassword);
-
+router
+    .route('/admin/staffs')
+    .get(isAuthenticatedUser, authorizeRoles('admin'), getAllStaff)
+router
+    .route('/admin/list')
+    .get(isAuthenticatedUser, authorizeRoles('admin'), getAllData)
 router
     .route('/admin/users')
     .get(isAuthenticatedUser, authorizeRoles('admin'), getAllUsers)
@@ -59,5 +68,11 @@ router
     .get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails)
     .put(isAuthenticatedUser, authorizeRoles('admin'), updateUser)
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteUser)
-    
+router
+    .route('/staff/user/:id')
+    .put(isAuthenticatedUser, authorizeRoles('staff'), updateSeller)
+router
+    .route('/sellers')
+    .get(isAuthenticatedUser, authorizeRoles('staff', 'admin'), getAllSellers)
+
 module.exports = router;
