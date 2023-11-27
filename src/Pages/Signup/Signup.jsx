@@ -55,11 +55,6 @@ const Signup = () => {
     console.log(data, 'data')
   };
 
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <div className="signup-page-container">
       <h1 className="signupHeading">Signup Page</h1>
