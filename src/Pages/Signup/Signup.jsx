@@ -19,7 +19,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const [isPasswordHide, setIsPasswordHide] = useState(true);
   const [isConfirmPasswordHide, setIsConfirmPasswordHide] = useState(true);
-
   const signupDataHandler = async (e) => {
     e.preventDefault();
     // if (Object.values(userDetails).includes("")) {
@@ -51,7 +50,8 @@ const Signup = () => {
         'Content-Type': 'multipart/form-data'
       }
     }
-    const { data } = await axios.post('http://localhost:8000/api/v1/register', formData, config)
+    const url = `${import.meta.env.VITE_BACKEND_URL}/api/v1/register`
+    const { data } = await axios.post(url, formData, config)
     console.log(data, 'data')
   };
 
