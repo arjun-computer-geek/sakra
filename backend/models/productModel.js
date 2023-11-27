@@ -33,23 +33,23 @@ const productSchema = new mongoose.Schema({
             },
         }
     ],
-    category: {
-        type: String,
-        required: [true, 'Please select category for this product'],
-        enum: {
-            values: [
-                'Electronics',
-                'Cameras',
-                'Laptops',
-                'Accessories',
-                'Headphones',
-                'Food',
-                'Sports',
-                'Home'
-            ],
-            message: 'Please select category for products'
-        }
-    },
+    // category: {
+    //     type: String,
+    //     required: [true, 'Please select category for this product'],
+    //     enum: {
+    //         values: [
+    //             'Electronics',
+    //             'Cameras',
+    //             'Laptops',
+    //             'Accessories',
+    //             'Headphones',
+    //             'Food',
+    //             'Sports',
+    //             'Home'
+    //         ],
+    //         message: 'Please select category for products'
+    //     }
+    // },
     seller: {
         type: String,
         required: [true, 'Please enter product seller']
@@ -57,7 +57,7 @@ const productSchema = new mongoose.Schema({
     stock: {
         type: Number,
         required: [true, 'Please Enter product stocks'],
-        maxLength: [5, 'Product stock value can not exced 5 character'],
+        maxLength: [10, 'Product stock value can not exced 10 character'],
         default: 0
     },
     numOfReviews: {

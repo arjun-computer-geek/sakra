@@ -6,30 +6,32 @@ const {
     createProduct,
     getSingleProduct,
     updateProduct,
-    delteProduct, 
+    delteProduct,
     createProductReview,
     getProductReviews,
     deleteReviews
 } = require('../controllers/productController');
 
-const {isAuthenticatedUser, authorizeRoles} = require('../middlewares/userAuth')
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/userAuth')
 
 router
     .route('/products')
-    .get(getProducts);
+    .get(getProducts)
+router
+    .route('/product')
+    .post(isAuthenticatedUser, authorizeRoles('admin', 'staff', 'seller'), createProduct);
 router
     .route('/product/:id')
-    .get(getSingleProduct);
-router
-    .route('/admin/product/new')
-    .post(isAuthenticatedUser, authorizeRoles('admin'), createProduct);
-router
-    .route('/admin/product/:id')
-    .put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct)
-    .delete(isAuthenticatedUser, authorizeRoles('admin'), delteProduct);
+    .get(getSingleProduct)
+    .put(isAuthenticatedUser, authorizeRoles('admin', 'staff', 'seller'), updateProduct)
+    .delete(isAuthenticatedUser, authorizeRoles('admin', 'staff', 'seller'), delteProduct);
 
-router.route('/review').put(isAuthenticatedUser, createProductReview)
-router.route('/reviews').get(isAuthenticatedUser, getProductReviews)
-router.route('/reviews').delete(isAuthenticatedUser, deleteReviews)
+router
+    .route('/review')
+    .post(isAuthenticatedUser, createProductReview)
+router
+    .route('/reviews/:productId')
+    .get(isAuthenticatedUser, getProductReviews)
+    .delete(isAuthenticatedUser, deleteReviews)
 
 module.exports = router;    
