@@ -30,7 +30,6 @@ const Signup = () => {
     //   userSignup(userDetails);
     // }
 
-    console.log(userDetails?.image, 'images')
 
     const formData = new FormData();
     formData.set('name', `${userDetails?.firstName} ${userDetails?.lastName}`);
