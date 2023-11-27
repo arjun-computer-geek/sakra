@@ -9,14 +9,12 @@ const sendEmail = require('../utils/sendEmail')
 
 //Register a user => /api/v1/register
 exports.registerUser = catchAsync( async(req, res, next) => {
-console.log(req.body)
     // const result = await cloudinary.v2.uploader.upload(req.body.avatar,{
     //     folder: 'avatars',
     //     width: 150,
     //     crop: "scale"
     // })
     const {name, email, password} = req.body;
-
     const user = await User.create({
         name,
         email,
