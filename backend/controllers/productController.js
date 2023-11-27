@@ -4,11 +4,10 @@ const ErrorHandler = require('../utils/errorhandler');
 const catchAsync = require('../middlewares/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 
-// Create new product => /api/v1/admin/product/new
+// Create new product => /api/v1/product
 exports.createProduct =catchAsync( async (req, res, next) => {
 
     req.body.user = req.user.id;
-    
     const newProduct = await Product.create(req.body);
     
     res.status(201).json({
@@ -17,7 +16,7 @@ exports.createProduct =catchAsync( async (req, res, next) => {
     })
 });
 
-//Get All Products => /api/v1/products?keyword=mobile
+//Get All Products => /api/v1/products?keyword=milk
 exports.getProducts = catchAsync( async (req, res,next) => {
 
     const resPerPage = 12;
@@ -26,11 +25,10 @@ exports.getProducts = catchAsync( async (req, res,next) => {
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
         .filter()
+    apiFeatures.pagination(resPerPage)
     let products = await apiFeatures.query;
     let filteredProductsCount = products.length;
-    apiFeatures.pagination(resPerPage)
 
-    products = await apiFeatures.query;
 
     res.status(200).json({
         success: true,
@@ -56,7 +54,7 @@ exports.getSingleProduct = catchAsync( async(req, res, next) => {
     })
 });
 
-//Update product => /api/v1/admin/product/:id
+//Update product => /api/v1/product/:id
 exports.updateProduct = catchAsync( async (req, res, next) => {
     
     let product = await Product.findById(req.params.id);
@@ -77,7 +75,7 @@ exports.updateProduct = catchAsync( async (req, res, next) => {
     })
 });
 
-//Delete product => /api/v1/admin/product/:id
+//Delete product => /api/v1/product/:id
 exports.delteProduct = catchAsync( async (req, res, next) => {
     
     const product = await Product.findById(req.params.id);
@@ -86,7 +84,7 @@ exports.delteProduct = catchAsync( async (req, res, next) => {
         return next(new ErrorHandler('Product Not Found', 404));
     }
 
-    await product.remove();
+    await product.deleteOne({_id:req.params.id})
 
     res.status(200).json({
         success: true,
@@ -133,7 +131,7 @@ exports.createProductReview = catchAsync(async(req, res, next) => {
 
 //Get product Reviews => /api/v1/reviews
 exports.getProductReviews = catchAsync( async(req, res, next) => {
-    const product = await Product.findById(req.query.id);
+    const product = await Product.findById(req.params.productId);
 
     res.status(200).json({
         success: true,
