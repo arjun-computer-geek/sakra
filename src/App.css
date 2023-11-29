@@ -17,5 +17,6 @@
 }
 .App {
   font-family: "Poppins", sans-serif;
+  margin: 0;
   color: var(--secondary-color);
 }
