@@ -9,29 +9,27 @@ const UserAddress = () => {
   const [isAddressForm, setIsAddressForm] = useState(false);
   const initialAddressForm = {
     name: "",
-    street: "",
+    house: "",
     city: "",
     state: "",
     country: "",
-    zipCode: "",
-    mobile: "",
+    pin: "",
+    mobileNo: "",
   };
   const [addressForm, setAddressForm] = useState(initialAddressForm);
-  const addressArr = authState?.address;
 
   return (
     <div className="user-address-container">
-      {addressArr?.length === 0 || addressArr === null ? (
+      {!authState?.user?.address ? (
         <p>No Address added yet</p>
       ) : (
-        addressArr?.map((address) => (
-          <AddressCard
-            key={address._id}
-            address={address}
-            setAddressForm={setAddressForm}
-            setIsAddressForm={setIsAddressForm}
-          />
-        ))
+
+        <AddressCard
+          address={authState?.user?.address}
+          setAddressForm={setAddressForm}
+          setIsAddressForm={setIsAddressForm}
+        />
+
       )}
       <button
         className="user-address-add-btn"

@@ -47,7 +47,7 @@ router
 
 router
     .route('/me/update')
-    .put(isAuthenticatedUser, updateProfile)
+    .patch(isAuthenticatedUser, updateProfile)
 
 router
     .route('/password/update')
