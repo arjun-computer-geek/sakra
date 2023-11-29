@@ -9,6 +9,7 @@ import { Wishlist } from "./Pages/Wishlist/Wishlist.jsx";
 import { Cart } from "./Pages/Cart/Cart.jsx";
 import { Login } from "./Pages/Login/Login.jsx";
 import { Signup } from "./Pages/Signup/Signup.jsx";
+import { Adminpanel } from "./Pages/Adminpanel/Adminpanel.jsx";
 import { ProductView } from "./Pages/Product View/ProductView.jsx";
 import { RequiresAuth } from "./Component/Auth/RequiresAuth.jsx";
 
@@ -30,6 +31,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productID" element={<ProductView />} />
+        <Route path="/admin"
+        element={
+              <Adminpanel />
+          } />
         <Route
           path="/wishlist"
           element={
