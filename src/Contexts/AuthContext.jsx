@@ -70,15 +70,15 @@ export const AuthProivider = ({ children }) => {
   };
 
   const userSignup = async (signupData) => {
-    register(authDispatch, signupData)
+    register(authDispatch, signupData, navigate)
   };
 
   useEffect(() => {
-    if (authState?.isAuthenticated) {
-      navigate("/");
-    }
+    // if (authState?.isAuthenticated) {
+    //   navigate("/");
+    // }
     if (authState.error) toast.error(authState.error);
-  }, [authState?.isAuthenticated]);
+  }, [, authState.error]);
 
   useEffect(() => {
     loadUser(authDispatch)
