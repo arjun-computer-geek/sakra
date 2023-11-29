@@ -19,7 +19,7 @@ const Navbar = () => {
     useContext(ProductContext);
   const { authState } = useContext(AuthContext);
   const navigate = useNavigate();
-  const token = authState?.token;
+
   const [isSearchBarVisible, setSearchBarVisible] = useState(false);
 
   const handleSearch = (e) => {
@@ -52,9 +52,8 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`search-container ${
-          isSearchBarVisible ? " search-visible" : ""
-        }`}
+        className={`search-container ${isSearchBarVisible ? " search-visible" : ""
+          }`}
       >
         <CiSearch className="search-icon" />
         <input
@@ -87,10 +86,10 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink
-          to={token ? "/userDetails" : "/login"}
+          to={authState?.user ? "/userDetails" : "/login"}
           className="nav-link nav-btn"
         >
-          {token ? (
+          {authState?.user ? (
             <AiOutlineUser className="nav-btn-icon" />
           ) : (
             <MdOutlineLogin className="nav-btn-icon" />

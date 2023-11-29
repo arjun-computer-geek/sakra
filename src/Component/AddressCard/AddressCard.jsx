@@ -4,31 +4,31 @@ import { removeUserAddress } from "../../utils/addressUtils";
 import "./AddressCardStyle.css";
 
 const AddressCard = ({ address, setAddressForm, setIsAddressForm }) => {
-  const { _id, name, street, city, state, country, zipCode, mobile } = address;
+  const { _id, name, house, city, state, country, pin, mobileNo } = address;
   const { authState, authDispatch } = useContext(AuthContext);
   const encodedToken = authState?.token;
 
   const editAddress = (
     _id,
     name,
-    street,
+    house,
     city,
     state,
     country,
-    zipCode,
-    mobile
+    pin,
+    mobileNo
   ) => {
     setIsAddressForm(true);
     setAddressForm((prev) => ({
       ...prev,
       _id,
       name,
-      street,
+      house,
       city,
       state,
       country,
-      zipCode,
-      mobile,
+      pin,
+      mobileNo,
     }));
   };
 
@@ -36,15 +36,15 @@ const AddressCard = ({ address, setAddressForm, setIsAddressForm }) => {
     <div className="user-address-card-container">
       <p className="user-address-card-name">{name}</p>
       <p>
-        {street}, {city}, {state}
+        {house && `${house},`} {city && `${city},`} {state}
       </p>
       <p>
-        PinCode: {zipCode}, {country}
+        PinCode: {pin}, {country}
       </p>
-      <p>Mobile No. {mobile}</p>
+      <p>mobile No. {mobileNo}</p>
       <button
         onClick={() =>
-          editAddress(_id, name, street, city, state, country, zipCode, mobile)
+          editAddress(_id, name, house, city, state, country, pin, mobileNo)
         }
       >
         Edit

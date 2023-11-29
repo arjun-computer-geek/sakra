@@ -40,6 +40,33 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    address: {
+        type: {
+            name: {
+                type: String
+            },
+            house: {
+                type: String
+            },
+            city: {
+                type: String
+            },
+            state: {
+                type: String
+            },
+            country: {
+                type: String
+            },
+            pin: {
+                type: String
+            },
+            mobileNo: {
+                type: String,
+                min: [10, 'Mobile Number must be 10 characters'],
+                max: [10, 'Mobile Number must be 10 characters']
+            }
+        }
+    },
     isDeleted: {
         type: Boolean,
         default: false

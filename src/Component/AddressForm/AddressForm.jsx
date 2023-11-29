@@ -21,12 +21,12 @@ const AddressForm = ({
     setAddressForm((form) => ({
       ...form,
       name: "Test User",
-      street: "123 Test Street",
+      house: "123 Test Street",
       city: "Test City",
       state: "Test State",
       country: "Test Country",
-      zipCode: "12345",
-      mobile: "9876543210",
+      pin: "12345",
+      mobileNo: "9876543210",
     }));
   };
 
@@ -34,17 +34,17 @@ const AddressForm = ({
     e.preventDefault();
     addressForm._id
       ? updateUserAddress(
-          addressForm,
-          encodedToken,
-          authDispatch,
-          setIsAddressForm
-        )
+        addressForm,
+        encodedToken,
+        authDispatch,
+        setIsAddressForm
+      )
       : addUserAddress(
-          addressForm,
-          encodedToken,
-          authDispatch,
-          setIsAddressForm
-        );
+        addressForm,
+        encodedToken,
+        authDispatch,
+        setIsAddressForm
+      );
   };
 
   return (

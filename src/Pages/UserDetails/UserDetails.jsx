@@ -6,9 +6,6 @@ import "./UserDetailsStyle.css";
 
 const UserDetails = () => {
   const { isProfileTab, setIsProfileTab } = useContext(ProductContext);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="user-details-page">
