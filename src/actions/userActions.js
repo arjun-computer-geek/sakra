@@ -58,7 +58,7 @@ export const login = (email, password) => async (dispatch) => {
 
 // Register user
 
-export const register = async (dispatch, userData) => {
+export const register = async (dispatch, userData, navigate) => {
     try {
 
         dispatch({ type: REGISTER_USER_REQUEST })
@@ -71,6 +71,7 @@ export const register = async (dispatch, userData) => {
 
         const { data } = await axios.post('/api/v1/register', userData, config)
         toast.success('Register Successfully.')
+        navigate('/')
         dispatch({
             type: REGISTER_USER_SUCCESS,
             payload: data.user
