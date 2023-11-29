@@ -32,8 +32,8 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productID" element={<ProductView />} />
         <Route path="/admin"
-        element={
-              <Adminpanel />
+          element={
+            <Adminpanel />
           } />
         <Route
           path="/wishlist"
@@ -74,14 +74,14 @@ function App() {
               <OrderSummary />
             </RequiresAuth>
           }
-        /> 
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mockman" element={<Mockman />} />
       </Routes>
       <ToastContainer
         position="bottom-right"
-        autoClose={700}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
