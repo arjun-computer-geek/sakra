@@ -1,17 +1,18 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import { AuthReducer } from "../Reducer/AuthReducer.jsx";
+import { authReducer } from "../Reducer/AuthReducer.jsx";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import { loadUser, register } from "../actions/userActions.js";
 
 export const AuthContext = createContext();
 export const AuthProivider = ({ children }) => {
   const initialAuthState = {
-    user: localStorage.getItem("user"),
-    token: localStorage.getItem("token"),
-    address: localStorage.getItem("address"),
+    user: {},
+    loading: false,
+    isAuthenticated: false
   };
 
-  const [authState, authDispatch] = useReducer(AuthReducer, initialAuthState);
+  const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
   const [loader, setLoader] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,57 +70,19 @@ export const AuthProivider = ({ children }) => {
   };
 
   const userSignup = async (signupData) => {
-    try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify(signupData),
-      });
-      const resJson = await res.json();
-      if (res.status === 201) {
-        localStorage.setItem("user", JSON.stringify(resJson?.createdUser));
-        localStorage.setItem("signupToken", resJson?.encodedToken);
-        authDispatch({
-          type: "setUser",
-          payload: JSON.stringify(resJson?.foundUser),
-        });
-        authDispatch({ type: "setToken", payload: resJson?.encodedToken });
-        toast.success("Signup Successful!");
-        navigate("/");
-      } else if (res.status === 422) {
-        console.log(resJson.errors[0]);
-        toast.error(resJson.errors[0]);
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
+    register(authDispatch, signupData)
   };
 
   useEffect(() => {
-    const getUserAddress = async () => {
-      const encodedToken = authState?.token;
-      if (encodedToken?.length !== 0) {
-        try {
-          const res = await fetch("/api/user/address", {
-            headers: {
-              authorization: encodedToken,
-            },
-          });
-          const resJson = await res?.json();
+    if (authState?.isAuthenticated) {
+      navigate("/");
+    }
+    if (authState.error) toast.error(authState.error);
+  }, [authState?.isAuthenticated]);
 
-          if (res.status === 200) {
-            localStorage.setItem("address", JSON.stringify(resJson?.address));
-            authDispatch({ type: "setAddress", payload: resJson?.address });
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      } else {
-        console.log("user Not logged in");
-      }
-    };
-    getUserAddress();
-  }, [authState?.token]);
+  useEffect(() => {
+    loadUser(authDispatch)
+  }, [])
 
   return (
     <AuthContext.Provider

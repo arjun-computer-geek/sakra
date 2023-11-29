@@ -19,40 +19,19 @@ const Signup = () => {
   const navigate = useNavigate();
   const [isPasswordHide, setIsPasswordHide] = useState(true);
   const [isConfirmPasswordHide, setIsConfirmPasswordHide] = useState(true);
+
   const signupDataHandler = async (e) => {
     e.preventDefault();
-    // if (Object.values(userDetails).includes("")) {
-    //   toast.error("Please enter valid input!");
-    // } else if (confirmPassword !== userDetails.password) {
-    //   toast.error("Password and Comfirm Password Not Matching!!");
-    // } else {
-    //   userSignup(userDetails);
-    // }
-
-
-    const formData = new FormData();
-    formData.set('name', `${userDetails?.firstName} ${userDetails?.lastName}`);
-    formData.set('email', userDetails?.email);
-    formData.set('password', userDetails?.password);
-    formData.set('avatar', userDetails?.image);
-    // const config = {
-    //   body: formData,
-    //   method: "POST",
-    // }
-
-    // const req = await fetch('http://localhost:8000/api/v1/register', config);
-    // console.log(req, 'req')
-    // const resData = await req.json();
-    // console.log(resData, 'resData');
-
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+    if (confirmPassword !== userDetails.password) {
+      toast.error("Password and Comfirm Password Not Matching!!");
+    } else {
+      const formData = new FormData();
+      formData.set('name', `${userDetails?.firstName} ${userDetails?.lastName}`);
+      formData.set('email', userDetails?.email);
+      formData.set('password', userDetails?.password);
+      // formData.set('avatar', userDetails?.image);
+      userSignup(formData)
     }
-    const url = `${import.meta.env.VITE_BACKEND_URL}/api/v1/register`
-    const { data } = await axios.post(url, formData, config)
-    console.log(data, 'data')
   };
 
   return (
@@ -141,12 +120,12 @@ const Signup = () => {
               )}
             </span>
           </div>
-          Avatar: <input type="file" onChange={(e) =>
+          {/* Avatar: <input type="file" onChange={(e) =>
             setUserDetails((prev) => ({
               ...prev,
               image: e.target.files[0],
             }))
-          } />
+          } /> */}
           <button className="signup-btn" type="submit">
             Signup
           </button>
