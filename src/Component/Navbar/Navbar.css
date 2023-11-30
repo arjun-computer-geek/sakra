@@ -28,9 +28,10 @@ nav button {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 10%;
 }
 .logo-icon {
-  width: 50px;
+  width: 60px;
 }
 .logo-name {
   font-size: 1.2rem;
@@ -86,17 +87,7 @@ nav button {
   width: 100%;
   background-color: white;
 }
-.search-visible {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.3rem 1rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 5;
-}
+
 .search-icon {
   position: absolute;
   left: 1.4rem;

@@ -1,5 +1,5 @@
 .user-details-page {
-  width: 94%;
+  width: 99.1vw;
   margin: 0 auto;
   margin-top: 3.1rem;
   padding: 0.25rem 0;
@@ -14,7 +14,7 @@
   margin-bottom: 1rem;
 }
 .user-details-container {
-  max-width: 600px;
+  width: 300px;
   margin: 0 auto;
   border: 1px solid var(--text-tertiary-color);
   border-radius: 0.5rem;

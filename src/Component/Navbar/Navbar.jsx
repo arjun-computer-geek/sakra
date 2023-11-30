@@ -52,8 +52,7 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`search-container ${isSearchBarVisible ? " search-visible" : ""
-          }`}
+        className="search-container"
       >
         <CiSearch className="search-icon" />
         <input

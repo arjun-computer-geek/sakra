@@ -1,5 +1,6 @@
 .signup-page-container {
-  width: 100vw;
+  width: 99.1vw;
+  height: 100vh;
   margin: 0 auto;
   margin-top: 3.1rem;
 }
@@ -11,11 +12,12 @@
   padding: 1.5rem 0;
 }
 .signup-form-container {
-  max-width: 600px;
+  width: 300px;
   margin: 0 auto;
   padding: 0.5rem;
   border: 1px solid var(--text-tertiary-color);
   border-radius: 0.5rem;
+  background-color: burlywood ;
 }
 .signup-field {
   margin: 1rem 0;
