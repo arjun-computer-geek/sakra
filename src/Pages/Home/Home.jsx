@@ -1,13 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { BsArrowRight } from "react-icons/bs";
 import headerImage from "../../assets/header-image.jpg";
 import { ProductContext } from "../../Contexts/ProductContext";
-import {Footer} from "../../Component/Footer/Footer";
+import { Footer } from "../../Component/Footer/Footer";
+import productImage from '../../assets/product.png'
 import "./HomeStyle.css";
 
 const Home = () => {
-  const { productState, filtersDispatch } = useContext(ProductContext);
+  const { getProducts, productState, filtersDispatch } = useContext(ProductContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Home = () => {
         <div className="header-body">
           <NavLink to="/products">
             <button
-              onClick={() => filtersDispatch({ type: "setClear", payload: "" })}
+              onClick={() => getProducts()}
             >
               Explore Now
             </button>
@@ -35,8 +35,8 @@ const Home = () => {
           <h1>Dairy Products</h1>
         </div>
         <div className="category-container">
-          {productState.categories.map(
-            ({ _id, image, categoryName, description }) => (
+          {productState?.products?.map(
+            ({ _id, name, images, categoryName, description }) => (
               <div
                 key={_id}
                 className="category-card"
@@ -48,16 +48,18 @@ const Home = () => {
                   });
                   navigate("/products");
                 }}
-              >
-                <div className="category-image">
-                  <img src={image} alt={categoryName} />
-                </div>
+              >{images?.length > 0 ? <div className="category-image">
+                <img src={images[0]} alt={name} />
+              </div> : <div className="category-image">
+                <img src={productImage} alt={name} />
+              </div>}
+
                 <div className="category-body">
-                  <h1>{categoryName}</h1>
+                  <h1>{name}</h1>
                   <p>{description}</p>
-                  <button>
+                  {/* <button>
                     see Collection <BsArrowRight />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )

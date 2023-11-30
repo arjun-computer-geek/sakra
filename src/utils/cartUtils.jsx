@@ -20,7 +20,7 @@ const addProductToCart = async (
     });
     const resJson = await res.json();
     if (res.status === 201) {
-      productDispatch({ type: "setCart", payload: resJson?.cart });
+      // productDispatch({ type: "setCart", payload: resJson?.cart });
       toast.success("Item is added to Cart!");
     }
   } catch (err) {
@@ -58,7 +58,7 @@ const handleProductQunatityInCart = async (
     });
     const resJson = await res.json();
     if (res.status === 200) {
-      productDispatch({ type: "setCart", payload: resJson?.cart });
+      // productDispatch({ type: "setCart", payload: resJson?.cart });
       toast.success(`Item Qty Update in cart!`);
     }
   } catch (err) {
@@ -81,7 +81,7 @@ const removeProductFromCart = async (
     });
     const resJson = await res.json();
     if (res.status === 200) {
-      productDispatch({ type: "setCart", payload: resJson?.cart });
+      // productDispatch({ type: "setCart", payload: resJson?.cart });
       toast.success("Item is removed from Cart!");
     }
   } catch (err) {
@@ -101,13 +101,13 @@ const clearCart = async (productDispatch, cart, encodedToken) => {
         });
         const resJson = await res.json();
         if (res.status === 200) {
-          productDispatch({ type: "setCart", payload: resJson?.cart });
+          // productDispatch({ type: "setCart", payload: resJson?.cart });
         }
       } catch (err) {
         console.log(err);
       }
     }
-    productDispatch({ type: "setCartReset" });
+    // productDispatch({ type: "setCartReset" });
   } catch (error) {
     console.log("Error in clear cart", error);
   }

@@ -11,6 +11,7 @@ import {
   removeProductFromWishlist,
 } from "../../utils/wishlistUtils";
 import "./ProductCardStyle.css";
+import productImage from '../../assets/product.png'
 
 const ProductCard = ({ product }) => {
   const { productState, productDispatch } = useContext(ProductContext);
@@ -68,11 +69,10 @@ const ProductCard = ({ product }) => {
           <p>{product.isBestSeller && "BEST SELLER"}</p>
           <button
             onClick={() => addToWishlistHandler(product)}
-            className={`pc-center ${
-              isProductInWishlist(productState?.wishlist, product?._id)
-                ? "wishlist"
-                : ""
-            } ${wishlistBtnDisabled && "wishlist-disabled"}`}
+            className={`pc-center ${isProductInWishlist(productState?.wishlist, product?._id)
+              ? "wishlist"
+              : ""
+              } ${wishlistBtnDisabled && "wishlist-disabled"}`}
             disabled={wishlistBtnDisabled}
           >
             {isProductInWishlist(productState?.wishlist, product?._id) ? (
@@ -85,25 +85,23 @@ const ProductCard = ({ product }) => {
         <div
           className="product-card-img"
           onClick={() => navigate(`/products/${product._id}`)}
-        >
-          <img src={product.image} alt={product.name} width="250px" />
+        >{product?.images?.length > 0 ? <img src={product?.images[0]} alt={product?.name} width="250px" /> : <img src={productImage} alt={product?.name} width="250px" />}
+
         </div>
         <div className="product-body">
           <div className="product-brand-review">
-            <p className="product-brand">{product.brand}</p>
+            <p className="product-brand">{product?.seller}</p>
             <p className="product-review pc-center">
               <AiFillStar className="starIcon" />
-              {product.customerReviews.avgValue}({product.customerReviews.count}
-              )
+              {product?.numOfReviews}
             </p>
           </div>
-          <h3 className="product-name">{product.name}</h3>
+          <h3 className="product-name">{product?.name}</h3>
           {/* <p>{product._id}</p> */}
           <p className="product-price">MRP: ₹{product.price}</p>
           <button
-            className={`product-cart-btn pc-center ${
-              cartBtnDisabled && "cart-disabled"
-            }`}
+            className={`product-cart-btn pc-center ${cartBtnDisabled && "cart-disabled"
+              }`}
             onClick={() => addToCartHandler(product)}
             disabled={cartBtnDisabled}
           >
