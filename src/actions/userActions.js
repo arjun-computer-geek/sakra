@@ -220,11 +220,13 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 }
 
 //Logout User
-export const logout = () => async (dispatch) => {
+export const logout = async (dispatch, navigate) => {
     try {
 
         await axios.get('/api/v1/logout')
-
+        toast.success("Logout successfully");
+        localStorage.removeItem('user');
+        navigate('/')
         dispatch({
             type: LOGOUT_SUCCESS
         })
