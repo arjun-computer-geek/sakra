@@ -1,59 +1,28 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import { authReducer } from "../Reducer/AuthReducer.jsx";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
-import { loadUser, register } from "../actions/userActions.js";
+import { json, useLocation, useNavigate } from "react-router-dom";
+import { loadUser, login, register } from "../actions/userActions.js";
 
 export const AuthContext = createContext();
 export const AuthProivider = ({ children }) => {
   const initialAuthState = {
-    user: {},
+    user: typeof localStorage.getItem('user') === 'string' && localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : {},
     loading: false,
     isAuthenticated: false
   };
 
+
   const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
   const [loader, setLoader] = useState(false);
-  const location = useLocation();
+
   const navigate = useNavigate();
 
   const userLogged = async (loginData) => {
+
     if (loginData.email && loginData.password !== "") {
-      try {
-        const config = {
-          method: "POST",
-          body: JSON.stringify(loginData),
-        };
-        const res = await fetch("/api/auth/login", config);
-        const resJson = await res.json();
-        if (res.status === 200) {
-          localStorage.setItem("user", JSON.stringify(resJson?.foundUser));
-          localStorage.setItem("token", resJson?.encodedToken);
-          localStorage.setItem(
-            "address",
-            JSON.stringify(resJson?.foundUser?.address)
-          );
-          authDispatch({ type: "setUser", payload: resJson?.foundUser });
-          authDispatch({ type: "setToken", payload: resJson?.encodedToken });
-          authDispatch({
-            type: "setAddress",
-            payload: resJson?.foundUser?.address,
-          });
-          toast.success("Login Successfully!");
-          navigate(
-            location?.state?.from?.pathname
-              ? location?.state?.from?.pathname
-              : "/"
-          );
-        } else {
-          console.log(resJson?.errors[0]);
-          toast.error(resJson?.errors[0]);
-        }
-      } catch (err) {
-        userLogout();
-        console.log(err.message);
-        toast.error(err.message);
-      }
+
+      login(authDispatch, loginData, navigate)
     } else {
       toast.error("Please enter valid input!");
     }
@@ -78,8 +47,10 @@ export const AuthProivider = ({ children }) => {
     //   navigate("/");
     // }
     if (authState.error) toast.error(authState.error);
-  }, [, authState.error]);
-
+  }, [authState.error]);
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(authState?.user))
+  }, [authState?.user])
   useEffect(() => {
     loadUser(authDispatch)
   }, [])

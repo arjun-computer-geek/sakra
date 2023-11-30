@@ -30,9 +30,9 @@ import {
 
 
 // Login
-export const login = (email, password) => async (dispatch) => {
+export const login = async (dispatch, userData, navigate) => {
     try {
-
+        const { email, password } = userData
         dispatch({ type: LOGIN_REQUEST })
 
         const config = {
@@ -42,7 +42,8 @@ export const login = (email, password) => async (dispatch) => {
         }
 
         const { data } = await axios.post('/api/v1/login', { email, password }, config)
-
+        toast.success("Loggedin Successfully");
+        navigate('/')
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user

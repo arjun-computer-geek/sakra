@@ -9,19 +9,20 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { userLogged, authState } = useContext(AuthContext);
+  const { userLogged } = useContext(AuthContext);
   const [isPasswordHide, setIsPasswordHide] = useState(true);
   const navigate = useNavigate();
 
-  const isToken = authState?.token;
 
   const guestUserData = {
-    email: "aryan@abc.com",
-    password: "iamgoingtosignin",
+    email: "test8@gmail.com",
+    password: "password",
   };
 
   const handleLogin = () => {
+
     userLogged(userData);
+
   };
 
   const handleGuestLogin = () => {
@@ -29,9 +30,6 @@ const Login = () => {
     userLogged(guestUserData);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="login-page-container">
@@ -69,7 +67,6 @@ const Login = () => {
           <button
             className="login-btn"
             onClick={handleLogin}
-            disabled={isToken?.length}
           >
             Login
           </button>
