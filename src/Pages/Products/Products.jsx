@@ -18,23 +18,22 @@ const Products = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (isLoading) {
+    if (productState?.isLoading) {
       setLoader(true);
     } else {
       setLoader(false);
     }
-  }, [setLoader, isLoading]);
+  }, [setLoader, productState?.isLoading]);
 
   return (
     <>
-      {isLoading ? (
+      {productState?.isLoading ? (
         ""
       ) : (
         <div className="products-page">
           <aside
-            className={`display-filters ${
-              showFilters ? "filters-visible" : ""
-            }`}
+            className={`display-filters ${showFilters ? "filters-visible" : ""
+              }`}
           >
             <Sidebar />
           </aside>
@@ -45,10 +44,10 @@ const Products = () => {
                   <BsFilter className="showFilters-btn" />
                 </button>
                 <h2 className="heading">
-                  Showing All Products({filteredProducts.length})
+                  Showing All Products({productState?.products?.length})
                 </h2>
               </div>
-              {filteredProducts.length === 0 &&
+              {productState?.products?.length === 0 &&
                 productState.products.length > 0 && (
                   <h1 className="empty-product-list">
                     Oops! Watches are currently out of stock in this category.
@@ -57,7 +56,7 @@ const Products = () => {
             </div>
             <div className="products-list-container">
               {showFilters && <div className="filters-overlay"></div>}
-              {filteredProducts.map((product) => (
+              {productState?.products?.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
             </div>

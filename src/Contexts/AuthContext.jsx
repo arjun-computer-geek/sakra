@@ -1,8 +1,8 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import { authReducer } from "../Reducer/AuthReducer.jsx";
 import { toast } from "react-toastify";
-import { json, useLocation, useNavigate } from "react-router-dom";
-import { loadUser, login, register } from "../actions/userActions.js";
+import { useNavigate } from "react-router-dom";
+import { loadUser, login, logout, register } from "../actions/userActions.js";
 
 export const AuthContext = createContext();
 export const AuthProivider = ({ children }) => {
@@ -29,13 +29,7 @@ export const AuthProivider = ({ children }) => {
   };
 
   const userLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("address");
-    authDispatch({ type: "setUser", payload: {} });
-    authDispatch({ type: "setToken", payload: "" });
-    authDispatch({ type: "setAddress", payload: [] });
-    toast.success("You're logged out!");
+    logout(authDispatch, navigate)
   };
 
   const userSignup = async (signupData) => {
